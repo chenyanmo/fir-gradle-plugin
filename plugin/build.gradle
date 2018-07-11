@@ -1,0 +1,68 @@
+apply plugin: 'groovy'
+
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url deployReleaseUrl
+        }
+        maven {
+            url deployUrl
+        }
+    }
+
+    dependencies {
+        classpath 'org.gradle.api.plugins:gradle-nexus-plugin:0.3'
+    }
+}
+
+
+dependencies {
+    repositories {
+        mavenCentral()
+        maven {
+            url deployReleaseUrl
+        }
+        maven {
+            url deployUrl
+        }
+
+    }
+    sourceCompatibility = JavaVersion.VERSION_1_7
+    targetCompatibility = JavaVersion.VERSION_1_7
+
+    compile "com.meiyou:fir-http:${FIR_HTTP_VERSION}"
+    compile gradleApi()
+
+    compile 'net.dongliu:apk-parser:2.1.6'
+    compile 'com.android.tools.build:gradle:2.2.0'
+    compile 'org.codehaus.jackson:jackson-mapper-asl:1.9.13'
+}
+
+//afterEvaluate { project ->
+//    uploadArchives {
+//        repositories {
+//            mavenDeployer {
+//
+//                pom.project {
+//                    developers {
+//                        developer {
+//                            id 'bhurling'
+//                            name 'Cape Gao'
+//                        }
+//
+//                    }
+//                }
+//
+//                pom.whenConfigured { pom ->
+//                    pom.dependencies = pom.dependencies.findAll { dep ->
+//                        dep.scope != 'test'
+//                    }
+//                }
+//            }
+//        }
+//    }
+//}
+
+
+apply from: '../gradle-mvn-push.gradle'
